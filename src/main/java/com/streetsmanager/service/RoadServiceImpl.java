@@ -2,7 +2,7 @@ package com.streetsmanager.service;
 
 import com.streetsmanager.entity.Road;
 import com.streetsmanager.entity.RoadDTO;
-import com.streetsmanager.exception_handling.exceptions.RoadBaseException;
+import com.streetsmanager.exception_handling.exceptions.RoadNotFoundException;
 import com.streetsmanager.mapper.RoadMapper;
 import com.streetsmanager.repositories.RoadRepositoryImpl;
 import jakarta.transaction.Transactional;
@@ -41,7 +41,7 @@ public class RoadServiceImpl implements RoadService {
     public RoadDTO getRoadById(Integer id) {
         RoadDTO road = roadMapper.createRoadDTO(roadRepository.getRoadById(id));
         if (road == null) {
-            throw new RoadBaseException("Дорога с таким id не существует");
+            throw new RoadNotFoundException("Дорога с таким id не существует");
         }
         return road;
     }
