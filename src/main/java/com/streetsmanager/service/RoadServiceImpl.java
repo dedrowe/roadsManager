@@ -9,7 +9,6 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -25,15 +24,7 @@ public class RoadServiceImpl implements RoadService {
     @Transactional
     public List<RoadDTO> getAllRoads() {
 
-        List<Road> roadList = roadRepository.getAllRoads();
-
-        List<RoadDTO> roadDTOList = new ArrayList<>();
-
-        for (Road road : roadList) {
-            roadDTOList.add(roadMapper.createRoadDTO(road));
-        }
-
-        return roadDTOList;
+        return roadRepository.getAllRoads().stream().map(roadMapper::createRoadDTO).toList();
     }
 
     @Override
