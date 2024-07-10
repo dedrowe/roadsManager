@@ -2,6 +2,7 @@ package com.streetsmanager.service;
 
 import com.streetsmanager.entity.Road;
 import com.streetsmanager.entity.RoadDTO;
+import com.streetsmanager.exception_handling.exceptions.RoadAlreadyExistsException;
 import com.streetsmanager.exception_handling.exceptions.RoadNotFoundException;
 import com.streetsmanager.mapper.RoadMapper;
 import com.streetsmanager.repositories.RoadRepositoryImpl;
@@ -40,6 +41,12 @@ public class RoadServiceImpl implements RoadService {
     @Override
     @Transactional
     public RoadDTO addRoad(Road road) {
+        if (road.getId() != null) {
+            Road oldRoad = roadRepository.getRoadById(road.getId());
+            if (oldRoad != null) {
+                throw new RoadAlreadyExistsException("Дорога с таким id уже существует");
+            }
+        }
         return roadMapper.createRoadDTO(roadRepository.saveRoad(road));
     }
 
