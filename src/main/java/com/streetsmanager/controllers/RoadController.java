@@ -7,7 +7,7 @@ import com.streetsmanager.mapper.RoadMapper;
 import com.streetsmanager.service.RoadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
+/test
 @RestController
 @RequestMapping("api/roads")
 public class RoadController {
